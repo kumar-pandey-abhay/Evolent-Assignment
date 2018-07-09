@@ -26,10 +26,11 @@ namespace Abhay_EvolentAssignment
         }
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            var identity = new CaimsIdentity(context.Options.AuthenticationType);
+            
             identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
-            identity.AddClaim(new Claim("username", "abhay"));
-            identity.AddClaim(new Claim(ClaimTypes.Name, "abhay"));
+            identity.AddClaim(new Claim("username", context.UserName));
+            identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             context.Validated(identity);
         }
     }
